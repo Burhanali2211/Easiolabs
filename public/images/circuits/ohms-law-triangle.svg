@@ -1,0 +1,39 @@
+<svg width="300" height="250" viewBox="0 0 300 250" xmlns="http://www.w3.org/2000/svg">
+  <!-- Title -->
+  <text x="150" y="25" text-anchor="middle" font-family="Arial" font-size="18" font-weight="bold" fill="#2C3E50">Ohm's Law Triangle</text>
+  
+  <!-- Main triangle -->
+  <polygon points="150,50 100,180 200,180" fill="#3498DB" stroke="#2980B9" stroke-width="3"/>
+  
+  <!-- Voltage section -->
+  <text x="150" y="90" text-anchor="middle" font-family="Arial" font-size="36" font-weight="bold" fill="white">V</text>
+  <text x="150" y="110" text-anchor="middle" font-family="Arial" font-size="12" fill="white">Voltage</text>
+  <text x="150" y="125" text-anchor="middle" font-family="Arial" font-size="12" fill="white">(Volts)</text>
+  
+  <!-- Horizontal line separating I and R -->
+  <line x1="100" y1="180" x2="200" y2="180" stroke="#2980B9" stroke-width="3"/>
+  <line x1="150" y1="140" x2="150" y2="180" stroke="white" stroke-width="2"/>
+  
+  <!-- Current section -->
+  <text x="125" y="165" text-anchor="middle" font-family="Arial" font-size="24" font-weight="bold" fill="white">I</text>
+  <text x="125" y="175" text-anchor="middle" font-family="Arial" font-size="8" fill="white">Current</text>
+  
+  <!-- Resistance section -->
+  <text x="175" y="165" text-anchor="middle" font-family="Arial" font-size="24" font-weight="bold" fill="white">R</text>
+  <text x="175" y="175" text-anchor="middle" font-family="Arial" font-size="8" fill="white">Resistance</text>
+  
+  <!-- Formulas around the triangle -->
+  <g fill="#E74C3C" font-family="Arial" font-size="14" font-weight="bold">
+    <!-- V = I × R -->
+    <text x="50" y="120" text-anchor="middle">V = I × R</text>
+    
+    <!-- I = V ÷ R -->
+    <text x="250" y="120" text-anchor="middle">I = V ÷ R</text>
+    
+    <!-- R = V ÷ I -->
+    <text x="150" y="210" text-anchor="middle">R = V ÷ I</text>
+  </g>
+  
+  <!-- Instructions -->
+  <text x="150" y="235" text-anchor="middle" font-family="Arial" font-size="12" fill="#7F8C8D">Cover the unknown value to reveal the formula</text>
+</svg>

@@ -1,0 +1,37 @@
+<svg width="200" height="120" viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg">
+  <!-- Arduino board -->
+  <rect x="10" y="20" width="180" height="80" fill="#006699" stroke="#004466" stroke-width="2" rx="5"/>
+  
+  <!-- USB connector -->
+  <rect x="5" y="35" width="15" height="10" fill="#C0C0C0" stroke="#999" stroke-width="1"/>
+  
+  <!-- Power jack -->
+  <circle cx="25" cy="25" r="5" fill="#000" stroke="#333" stroke-width="1"/>
+  
+  <!-- Digital pins -->
+  <g fill="#333" stroke="#000" stroke-width="0.5">
+    <rect x="140" y="15" width="45" height="8" fill="#333"/>
+    <rect x="140" y="97" width="45" height="8" fill="#333"/>
+  </g>
+  
+  <!-- Analog pins -->
+  <g fill="#333" stroke="#000" stroke-width="0.5">
+    <rect x="15" y="97" width="35" height="8" fill="#333"/>
+  </g>
+  
+  <!-- Power LED -->
+  <circle cx="30" cy="40" r="2" fill="#00FF00"/>
+  
+  <!-- Pin 13 LED -->
+  <circle cx="40" cy="40" r="2" fill="#FFA500"/>
+  
+  <!-- Microcontroller -->
+  <rect x="80" y="45" width="40" height="30" fill="#1a1a1a" stroke="#000" stroke-width="1"/>
+  
+  <!-- Arduino logo area -->
+  <text x="100" y="70" text-anchor="middle" font-family="Arial" font-size="12" fill="#FFF" font-weight="bold">UNO</text>
+  
+  <!-- Pin labels -->
+  <text x="162" y="12" text-anchor="middle" font-family="Arial" font-size="6" fill="#FFF">DIGITAL</text>
+  <text x="32" y="112" text-anchor="middle" font-family="Arial" font-size="6" fill="#FFF">ANALOG</text>
+</svg>

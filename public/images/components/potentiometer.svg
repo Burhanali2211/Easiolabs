@@ -1,0 +1,28 @@
+<svg width="100" height="80" viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg">
+  <!-- Potentiometer body -->
+  <rect x="20" y="30" width="60" height="20" fill="#95A5A6" stroke="#7F8C8D" stroke-width="2" rx="10"/>
+  
+  <!-- Resistive track -->
+  <rect x="25" y="35" width="50" height="10" fill="#34495E" rx="5"/>
+  
+  <!-- Wiper -->
+  <line x1="50" y1="25" x2="50" y2="35" stroke="#E74C3C" stroke-width="3"/>
+  <circle cx="50" cy="25" r="3" fill="#E74C3C"/>
+  
+  <!-- Adjustment shaft -->
+  <rect x="47" y="10" width="6" height="15" fill="#BDC3C7" stroke="#95A5A6" stroke-width="1"/>
+  
+  <!-- Terminals -->
+  <line x1="10" y1="40" x2="20" y2="40" stroke="#7F8C8D" stroke-width="2"/>
+  <line x1="80" y1="40" x2="90" y2="40" stroke="#7F8C8D" stroke-width="2"/>
+  <line x1="50" y1="25" x2="50" y2="15" stroke="#7F8C8D" stroke-width="2"/>
+  
+  <!-- Knob indicator -->
+  <line x1="50" y1="10" x2="53" y2="7" stroke="#2C3E50" stroke-width="2"/>
+  
+  <!-- Labels -->
+  <text x="15" y="35" font-family="Arial" font-size="8" fill="#333">1</text>
+  <text x="85" y="35" font-family="Arial" font-size="8" fill="#333">3</text>
+  <text x="55" y="20" font-family="Arial" font-size="8" fill="#333">2</text>
+  <text x="50" y="70" text-anchor="middle" font-family="Arial" font-size="8" fill="#333">10kΩ</text>
+</svg>

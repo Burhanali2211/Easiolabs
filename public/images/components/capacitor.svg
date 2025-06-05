@@ -1,0 +1,16 @@
+<svg width="80" height="60" viewBox="0 0 80 60" xmlns="http://www.w3.org/2000/svg">
+  <!-- Capacitor plates -->
+  <rect x="35" y="10" width="3" height="40" fill="#4A90E2" stroke="#357ABD" stroke-width="1"/>
+  <rect x="42" y="10" width="3" height="40" fill="#4A90E2" stroke="#357ABD" stroke-width="1"/>
+  
+  <!-- Leads -->
+  <line x1="0" y1="30" x2="35" y2="30" stroke="#C0C0C0" stroke-width="2"/>
+  <line x1="45" y1="30" x2="80" y2="30" stroke="#C0C0C0" stroke-width="2"/>
+  
+  <!-- Polarity indicator for electrolytic -->
+  <text x="25" y="25" font-family="Arial" font-size="12" fill="#333">+</text>
+  <text x="50" y="25" font-family="Arial" font-size="12" fill="#333">-</text>
+  
+  <!-- Value label -->
+  <text x="40" y="55" text-anchor="middle" font-family="Arial" font-size="8" fill="#333">100µF</text>
+</svg>

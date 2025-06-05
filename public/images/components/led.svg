@@ -1,0 +1,29 @@
+<svg width="80" height="80" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+  <!-- LED body -->
+  <circle cx="40" cy="35" r="15" fill="#FF6B6B" stroke="#E55555" stroke-width="2"/>
+  
+  <!-- Flat edge (cathode indicator) -->
+  <path d="M 30 25 L 30 45" stroke="#E55555" stroke-width="3" fill="none"/>
+  
+  <!-- Leads -->
+  <line x1="40" y1="50" x2="40" y2="70" stroke="#C0C0C0" stroke-width="2"/>
+  <line x1="40" y1="20" x2="40" y2="5" stroke="#C0C0C0" stroke-width="2"/>
+  
+  <!-- Light rays -->
+  <g stroke="#FFD700" stroke-width="2" fill="none" opacity="0.7">
+    <line x1="55" y1="20" x2="65" y2="10"/>
+    <line x1="60" y1="25" x2="70" y2="15"/>
+    <line x1="55" y1="30" x2="65" y2="20"/>
+  </g>
+  
+  <!-- Arrow heads for light -->
+  <g fill="#FFD700" opacity="0.7">
+    <polygon points="65,10 67,8 67,12"/>
+    <polygon points="70,15 72,13 72,17"/>
+    <polygon points="65,20 67,18 67,22"/>
+  </g>
+  
+  <!-- Labels -->
+  <text x="15" y="75" font-family="Arial" font-size="8" fill="#333">+</text>
+  <text x="60" y="75" font-family="Arial" font-size="8" fill="#333">-</text>
+</svg>

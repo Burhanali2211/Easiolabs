@@ -1,0 +1,17 @@
+<svg width="120" height="40" viewBox="0 0 120 40" xmlns="http://www.w3.org/2000/svg">
+  <!-- Resistor body -->
+  <rect x="20" y="15" width="80" height="10" fill="#D4A574" stroke="#8B4513" stroke-width="1" rx="2"/>
+  
+  <!-- Color bands -->
+  <rect x="30" y="13" width="4" height="14" fill="#8B0000"/>
+  <rect x="40" y="13" width="4" height="14" fill="#FF0000"/>
+  <rect x="50" y="13" width="4" height="14" fill="#FFA500"/>
+  <rect x="70" y="13" width="4" height="14" fill="#FFD700"/>
+  
+  <!-- Leads -->
+  <line x1="0" y1="20" x2="20" y2="20" stroke="#C0C0C0" stroke-width="2"/>
+  <line x1="100" y1="20" x2="120" y2="20" stroke="#C0C0C0" stroke-width="2"/>
+  
+  <!-- Labels -->
+  <text x="60" y="35" text-anchor="middle" font-family="Arial" font-size="8" fill="#333">220Ω</text>
+</svg>
