@@ -10,7 +10,7 @@ const OpAmpPage = () => {
   const [r2Value, setR2Value] = useState('10000');
   const [inputVoltage, setInputVoltage] = useState('1');
   const [capacitorValue, setCapacitorValue] = useState('100');
-  
+
   const [gain, setGain] = useState<number | null>(null);
   const [outputVoltage, setOutputVoltage] = useState<number | null>(null);
   const [inputImpedance, setInputImpedance] = useState<number | null>(null);
@@ -39,18 +39,18 @@ const OpAmpPage = () => {
         calculatedGain = 1 + (R2 / R1);
         calculatedInputImpedance = 1e12; // Very high for ideal op-amp
         break;
-        
+
       case 'inverting':
         calculatedGain = -(R2 / R1);
         calculatedInputImpedance = R1;
         break;
-        
+
       case 'differential':
         // Assuming matched resistors for simplicity
         calculatedGain = R2 / R1;
         calculatedInputImpedance = R1;
         break;
-        
+
       case 'integrator':
         if (!isNaN(C) && C > 0) {
           // For integrator, gain is frequency dependent
@@ -132,7 +132,7 @@ const OpAmpPage = () => {
               Reset
             </button>
           </div>
-          
+
           <div className="text-center">
             <div className="bg-purple-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
               <Zap className="h-8 w-8 text-purple-600" />
@@ -151,11 +151,11 @@ const OpAmpPage = () => {
       <section className="py-12">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            
+
             {/* Input Section */}
             <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
               <h2 className="text-xl font-bold text-gray-900 mb-6">Op-Amp Configuration</h2>
-              
+
               {/* Configuration Type */}
               <div className="mb-6">
                 <label className="block text-sm font-medium text-gray-700 mb-3">
@@ -275,7 +275,7 @@ const OpAmpPage = () => {
             {/* Results Section */}
             <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
               <h2 className="text-xl font-bold text-gray-900 mb-6">Results</h2>
-              
+
               {gain !== null && (
                 <div className="space-y-4">
                   <div className="bg-purple-50 border border-purple-200 rounded-lg p-4">
@@ -286,10 +286,10 @@ const OpAmpPage = () => {
                       {gain >= 0 ? '+' : ''}{gain.toFixed(2)}
                     </p>
                     <p className="text-sm text-purple-700 mt-1">
-                      {20 * Math.log10(Math.abs(gain)).toFixed(1)} dB
+                      {gain && !isNaN(gain) ? (20 * Math.log10(Math.abs(gain))).toFixed(1) : '0.0'} dB
                     </p>
                   </div>
-                  
+
                   <div className="grid grid-cols-1 gap-4">
                     <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
                       <h4 className="font-medium text-gray-700 text-sm">Output Voltage</h4>

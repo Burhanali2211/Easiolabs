@@ -1,216 +1,156 @@
-@import "tailwindcss";
-
-@source "src/**/*.{js,ts,jsx,tsx}";
-
-/* Ensure all utility classes are available */
-@utility bg-blue-600 {
-  background-color: #2563eb;
-}
-
-@utility bg-blue-700 {
-  background-color: #1d4ed8;
-}
-
-@utility bg-blue-500 {
-  background-color: #3b82f6;
-}
-
-@utility text-blue-600 {
-  color: #2563eb;
-}
-
-@utility text-blue-700 {
-  color: #1d4ed8;
-}
-
-/* Hover utilities handled by Tailwind automatically */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
   --background: #ffffff;
   --foreground: #171717;
 }
 
-@theme {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-
-  /* Color palette */
-  --color-blue-50: #eff6ff;
-  --color-blue-100: #dbeafe;
-  --color-blue-500: #3b82f6;
-  --color-blue-600: #2563eb;
-  --color-blue-700: #1d4ed8;
-  --color-blue-800: #1e40af;
-
-  --color-green-500: #10b981;
-  --color-green-600: #059669;
-
-  --color-purple-500: #8b5cf6;
-  --color-purple-600: #7c3aed;
-
-  --color-orange-500: #f97316;
-  --color-orange-600: #ea580c;
-
-  --color-red-500: #ef4444;
-  --color-red-600: #dc2626;
-
-  --color-pink-600: #db2777;
-
-  --color-gray-50: #f9fafb;
-  --color-gray-100: #f3f4f6;
-  --color-gray-200: #e5e7eb;
-  --color-gray-300: #d1d5db;
-  --color-gray-400: #9ca3af;
-  --color-gray-500: #6b7280;
-  --color-gray-600: #4b5563;
-  --color-gray-700: #374151;
-  --color-gray-800: #1f2937;
-  --color-gray-900: #111827;
-
-  --color-white: #ffffff;
-  --color-black: #000000;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-geist-sans), system-ui, sans-serif;
-}
-
-code {
-  font-family: var(--font-geist-mono), 'Courier New', monospace;
-}
-
-/* Component styles */
-.btn-primary {
-  @apply bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors duration-200;
-}
-
-.btn-secondary {
-  @apply bg-gray-100 text-gray-900 px-6 py-3 rounded-lg font-medium hover:bg-gray-200 transition-colors duration-200;
-}
-
-.card {
-  @apply bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300;
-}
-
-/* Tutorial content styles */
-.tutorial-content h1 {
-  @apply text-3xl font-bold text-gray-900 mb-6;
-}
-
-.tutorial-content h2 {
-  @apply text-2xl font-bold text-gray-900 mb-4 mt-8;
-}
-
-.tutorial-content h3 {
-  @apply text-xl font-bold text-gray-900 mb-3 mt-6;
-}
-
-.tutorial-content p {
-  @apply text-gray-700 mb-4 leading-relaxed;
-}
-
-.tutorial-content ul {
-  @apply list-disc list-inside mb-4 text-gray-700;
-}
-
-.tutorial-content ol {
-  @apply list-decimal list-inside mb-4 text-gray-700;
-}
-
-.tutorial-content li {
-  @apply mb-2;
-}
-
-.tutorial-content code {
-  @apply bg-gray-100 px-2 py-1 rounded text-sm font-mono;
-}
-
-.tutorial-content pre {
-  @apply bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto mb-6;
-}
-
-.tutorial-content pre code {
-  @apply bg-transparent p-0;
-}
-
-.tutorial-content blockquote {
-  @apply border-l-4 border-blue-500 pl-4 italic text-gray-600 mb-4;
-}
-
-.tutorial-content table {
-  @apply w-full border-collapse border border-gray-300 mb-6;
-}
-
-.tutorial-content th {
-  @apply bg-gray-50 border border-gray-300 px-4 py-2 text-left font-medium;
-}
-
-.tutorial-content td {
-  @apply border border-gray-300 px-4 py-2;
-}
-
-/* Line clamp utilities */
-.line-clamp-2 {
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.line-clamp-3 {
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-/* Animation delays */
-.animation-delay-200 {
-  animation-delay: 200ms;
-}
-
-.animation-delay-400 {
-  animation-delay: 400ms;
-}
-
-/* Custom animations */
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
+@layer base {
+  html {
+    scroll-behavior: smooth;
   }
 
-  to {
-    opacity: 1;
-    transform: translateY(0);
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-inter), system-ui, sans-serif;
+  }
+
+  code {
+    font-family: var(--font-jetbrains-mono), 'Courier New', monospace;
   }
 }
 
-.animate-fadeInUp {
-  animation: fadeInUp 0.6s ease-out;
-}
-
-/* Loading animations */
-@keyframes shimmer {
-  0% {
-    background-position: -200px 0;
+@layer components {
+  .btn-primary {
+    @apply bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors duration-200;
   }
 
-  100% {
-    background-position: calc(200px + 100%) 0;
+  .btn-secondary {
+    @apply bg-gray-100 text-gray-900 px-6 py-3 rounded-lg font-medium hover:bg-gray-200 transition-colors duration-200;
+  }
+
+  .card {
+    @apply bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300;
+  }
+
+  /* Tutorial content styles */
+  .tutorial-content h1 {
+    @apply text-3xl font-bold text-gray-900 mb-6;
+  }
+
+  .tutorial-content h2 {
+    @apply text-2xl font-bold text-gray-900 mb-4 mt-8;
+  }
+
+  .tutorial-content h3 {
+    @apply text-xl font-bold text-gray-900 mb-3 mt-6;
+  }
+
+  .tutorial-content p {
+    @apply text-gray-700 mb-4 leading-relaxed;
+  }
+
+  .tutorial-content ul {
+    @apply list-disc list-inside mb-4 text-gray-700;
+  }
+
+  .tutorial-content ol {
+    @apply list-decimal list-inside mb-4 text-gray-700;
+  }
+
+  .tutorial-content li {
+    @apply mb-2;
+  }
+
+  .tutorial-content code {
+    @apply bg-gray-100 px-2 py-1 rounded text-sm font-mono;
+  }
+
+  .tutorial-content pre {
+    @apply bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto mb-6;
+  }
+
+  .tutorial-content pre code {
+    @apply bg-transparent p-0;
+  }
+
+  .tutorial-content blockquote {
+    @apply border-l-4 border-blue-500 pl-4 italic text-gray-600 mb-4;
+  }
+
+  .tutorial-content table {
+    @apply w-full border-collapse border border-gray-300 mb-6;
+  }
+
+  .tutorial-content th {
+    @apply bg-gray-50 border border-gray-300 px-4 py-2 text-left font-medium;
+  }
+
+  .tutorial-content td {
+    @apply border border-gray-300 px-4 py-2;
   }
 }
 
-.animate-shimmer {
-  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-  background-size: 200px 100%;
-  animation: shimmer 1.5s infinite;
+@layer utilities {
+
+  /* Line clamp utilities */
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* Animation delays */
+  .animation-delay-200 {
+    animation-delay: 200ms;
+  }
+
+  .animation-delay-400 {
+    animation-delay: 400ms;
+  }
+
+  /* Custom animations */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fadeInUp {
+    animation: fadeInUp 0.6s ease-out;
+  }
+
+  /* Loading animations */
+  @keyframes shimmer {
+    0% {
+      background-position: -200px 0;
+    }
+
+    100% {
+      background-position: calc(200px + 100%) 0;
+    }
+  }
+
+  .animate-shimmer {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200px 100%;
+    animation: shimmer 1.5s infinite;
+  }
 }

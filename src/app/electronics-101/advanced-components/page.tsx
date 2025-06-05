@@ -1,3 +1,4 @@
+import React from 'react';
 import Link from 'next/link';
 import { ArrowRight, ArrowLeft, Lightbulb, Zap, AlertTriangle, CheckCircle, Eye, Thermometer, Clock, Cpu, Sun } from 'lucide-react';
 
