@@ -123,6 +123,7 @@ const Header = () => {
             <button
               onClick={() => setIsSearchOpen(!isSearchOpen)}
               className="text-gray-700 hover:text-blue-600 p-2"
+              type="button"
             >
               <Search className="h-5 w-5" />
             </button>
@@ -131,6 +132,7 @@ const Header = () => {
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="md:hidden text-gray-700 hover:text-blue-600 p-2"
+              type="button"
             >
               {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
@@ -159,50 +161,55 @@ const Header = () => {
           <div className="md:hidden py-4 border-t border-gray-200">
             <div className="space-y-2">
               {navigationItems.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 rounded-md"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {item.title}
-                </Link>
+                <div key={item.href} onClick={() => setIsMenuOpen(false)}>
+                  <Link
+                    href={item.href}
+                    className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 rounded-md"
+                  >
+                    {item.title}
+                  </Link>
+                </div>
               ))}
-              <Link
-                href="/services"
-                className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 rounded-md"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Services
-              </Link>
-              <Link
-                href="/calculators"
-                className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 rounded-md"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Calculators
-              </Link>
-              <Link
-                href="/circuit-simulator"
-                className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 rounded-md"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Circuit Simulator
-              </Link>
-              <Link
-                href="/arduino-playground"
-                className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 rounded-md"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Arduino Playground
-              </Link>
-              <Link
-                href="/faq"
-                className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 rounded-md"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                FAQ
-              </Link>
+              <div onClick={() => setIsMenuOpen(false)}>
+                <Link
+                  href="/services"
+                  className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 rounded-md"
+                >
+                  Services
+                </Link>
+              </div>
+              <div onClick={() => setIsMenuOpen(false)}>
+                <Link
+                  href="/calculators"
+                  className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 rounded-md"
+                >
+                  Calculators
+                </Link>
+              </div>
+              <div onClick={() => setIsMenuOpen(false)}>
+                <Link
+                  href="/circuit-simulator"
+                  className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 rounded-md"
+                >
+                  Circuit Simulator
+                </Link>
+              </div>
+              <div onClick={() => setIsMenuOpen(false)}>
+                <Link
+                  href="/arduino-playground"
+                  className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 rounded-md"
+                >
+                  Arduino Playground
+                </Link>
+              </div>
+              <div onClick={() => setIsMenuOpen(false)}>
+                <Link
+                  href="/faq"
+                  className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 rounded-md"
+                >
+                  FAQ
+                </Link>
+              </div>
             </div>
           </div>
         )}

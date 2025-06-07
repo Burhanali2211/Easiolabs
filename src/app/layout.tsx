@@ -3,7 +3,6 @@ import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import Breadcrumb from "@/components/Breadcrumb";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -38,7 +37,6 @@ export default function RootLayout({
         className={`${inter.variable} ${jetbrainsMono.variable} antialiased min-h-screen bg-white text-gray-900 flex flex-col`}
       >
         <Header />
-        <Breadcrumb />
         <main className="flex-1">
           {children}
         </main>

@@ -1,3 +1,5 @@
+'use client';
+
 import Link from 'next/link';
 import { Home, Search, BookOpen, ArrowLeft } from 'lucide-react';
 
@@ -50,7 +52,7 @@ export default function NotFound() {
             Page Not Found
           </h1>
           <p className="text-lg text-gray-600 mb-8">
-            Oops! The page you're looking for seems to have wandered off into the digital void. 
+            Oops! The page you're looking for seems to have wandered off into the digital void.
             Don't worry, even the best circuits sometimes have loose connections!
           </p>
 
