@@ -2,8 +2,9 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
-import { Menu, X, Search } from 'lucide-react';
-import SearchResults from './SearchResults';
+import { Menu, X, Search, User, Bookmark, BarChart3 } from 'lucide-react';
+import SearchAutocomplete from './SearchAutocomplete';
+import LanguageSwitcher from './LanguageSwitcher';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -117,8 +118,27 @@ const Header = () => {
             </Link>
           </nav>
 
-          {/* Search and Mobile Menu */}
+          {/* Search, User Menu and Mobile Menu */}
           <div className="flex items-center space-x-4">
+            {/* User Menu (Desktop) */}
+            <div className="hidden md:flex items-center space-x-2">
+              <Link
+                href="/bookmarks"
+                className="text-gray-700 hover:text-blue-600 p-2 rounded-md hover:bg-gray-100"
+                title="My Bookmarks"
+              >
+                <Bookmark className="h-5 w-5" />
+              </Link>
+              <Link
+                href="/progress"
+                className="text-gray-700 hover:text-blue-600 p-2 rounded-md hover:bg-gray-100"
+                title="Learning Progress"
+              >
+                <BarChart3 className="h-5 w-5" />
+              </Link>
+              <LanguageSwitcher />
+            </div>
+
             {/* Search Button */}
             <button
               onClick={() => setIsSearchOpen(!isSearchOpen)}
@@ -142,17 +162,13 @@ const Header = () => {
         {/* Search Bar */}
         {isSearchOpen && (
           <div className="py-4 border-t border-gray-200">
-            <div className="relative">
-              <input
-                type="text"
-                placeholder="Search tutorials..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                autoFocus
-              />
-              <Search className="absolute right-3 top-2.5 h-5 w-5 text-gray-400" />
-            </div>
+            <SearchAutocomplete
+              placeholder="Search tutorials, guides, and projects..."
+              onSearch={(query) => {
+                setIsSearchOpen(false);
+                setSearchQuery('');
+              }}
+            />
           </div>
         )}
 
@@ -210,20 +226,34 @@ const Header = () => {
                   FAQ
                 </Link>
               </div>
+
+              {/* User Menu (Mobile) */}
+              <div className="border-t border-gray-200 pt-2 mt-2">
+                <div onClick={() => setIsMenuOpen(false)}>
+                  <Link
+                    href="/bookmarks"
+                    className="flex items-center px-3 py-2 text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 rounded-md"
+                  >
+                    <Bookmark className="h-5 w-5 mr-2" />
+                    My Bookmarks
+                  </Link>
+                </div>
+                <div onClick={() => setIsMenuOpen(false)}>
+                  <Link
+                    href="/progress"
+                    className="flex items-center px-3 py-2 text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 rounded-md"
+                  >
+                    <BarChart3 className="h-5 w-5 mr-2" />
+                    Learning Progress
+                  </Link>
+                </div>
+              </div>
             </div>
           </div>
         )}
       </div>
 
-      {/* Search Results Modal */}
-      <SearchResults
-        isOpen={isSearchOpen && searchQuery.length > 0}
-        onClose={() => {
-          setIsSearchOpen(false);
-          setSearchQuery('');
-        }}
-        searchQuery={searchQuery}
-      />
+
     </header>
   );
 };

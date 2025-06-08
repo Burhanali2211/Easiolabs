@@ -3,6 +3,7 @@ import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import AnalyticsTracker from "@/components/AnalyticsTracker";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -15,6 +16,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://easyiolabs.com'),
   title: "EasyioLabs - Learn Electronics the Easy Way",
   description: "Quick, easy and to the point electronics tutorials for Arduino, ESP32, ESP8266, and basic electronics. Learn with step-by-step guides and practical projects.",
   keywords: "Arduino, ESP32, ESP8266, electronics, tutorials, sensors, IoT, programming, microcontrollers",
@@ -36,6 +38,7 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${jetbrainsMono.variable} antialiased min-h-screen bg-white text-gray-900 flex flex-col`}
       >
+        <AnalyticsTracker />
         <Header />
         <main className="flex-1">
           {children}

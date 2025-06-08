@@ -2,14 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import { Search, X } from 'lucide-react';
-
-interface SearchResult {
-  title: string;
-  description: string;
-  href: string;
-  category: string;
-  keywords?: string[];
-}
+import { ContentClientService } from '@/lib/content-client';
+import type { Tutorial } from '@/lib/types';
 
 interface SearchResultsProps {
   isOpen: boolean;
@@ -17,58 +11,25 @@ interface SearchResultsProps {
   searchQuery: string;
 }
 
-// Simplified search data to prevent build issues
-const searchData: SearchResult[] = [
-  {
-    title: 'Arduino Programming Fundamentals',
-    description: 'Learn Arduino programming with fun analogies and interactive challenges.',
-    href: '/arduino-programming-fundamentals',
-    category: 'Arduino',
-    keywords: ['arduino', 'programming', 'fundamentals', 'beginner']
-  },
-  {
-    title: 'Electronics 101',
-    description: 'Complete beginner course for electronics fundamentals.',
-    href: '/electronics-101',
-    category: 'Electronics',
-    keywords: ['electronics', 'basics', 'beginner', 'fundamentals']
-  },
-  {
-    title: 'Circuit Simulator',
-    description: 'Simulate electronic circuits in your browser.',
-    href: '/circuit-simulator',
-    category: 'Tools',
-    keywords: ['circuit', 'simulator', 'tools', 'interactive']
-  },
-  {
-    title: 'Calculators',
-    description: 'Electronic calculation tools and utilities.',
-    href: '/calculators',
-    category: 'Tools',
-    keywords: ['calculators', 'tools', 'electronics', 'utilities']
-  }
-];
-
 const SearchResults = ({ isOpen, onClose, searchQuery }: SearchResultsProps) => {
-  const [results, setResults] = useState<SearchResult[]>([]);
+  const [results, setResults] = useState<Tutorial[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (searchQuery.length > 2) {
       setIsLoading(true);
-      
-      // Simple search with timeout
-      const timer = setTimeout(() => {
-        const query = searchQuery.toLowerCase();
-        const filteredResults = searchData.filter(item => 
-          item.title.toLowerCase().includes(query) ||
-          item.description.toLowerCase().includes(query) ||
-          item.category.toLowerCase().includes(query) ||
-          item.keywords?.some(keyword => keyword.toLowerCase().includes(query))
-        );
-        
-        setResults(filteredResults);
-        setIsLoading(false);
+
+      // Search with debounce
+      const timer = setTimeout(async () => {
+        try {
+          const searchResults = await ContentClientService.searchTutorials(searchQuery);
+          setResults(searchResults);
+        } catch (error) {
+          console.error('Search error:', error);
+          setResults([]);
+        } finally {
+          setIsLoading(false);
+        }
       }, 300);
 
       return () => clearTimeout(timer);
@@ -123,13 +84,13 @@ const SearchResults = ({ isOpen, onClose, searchQuery }: SearchResultsProps) => 
             </div>
           ) : (
             <div className="divide-y divide-gray-200">
-              {results.map((result, index) => (
+              {results.map((result) => (
                 <div
-                  key={index}
+                  key={result.id}
                   className="block p-4 hover:bg-gray-50 transition-colors cursor-pointer"
                   onClick={() => {
                     onClose();
-                    window.location.href = result.href;
+                    window.location.href = `/tutorial/${result.slug}`;
                   }}
                 >
                   <div className="flex items-start">
@@ -140,9 +101,14 @@ const SearchResults = ({ isOpen, onClose, searchQuery }: SearchResultsProps) => 
                       <p className="text-sm text-gray-600 mb-2">
                         {result.description}
                       </p>
-                      <span className="inline-block px-2 py-1 text-xs bg-blue-100 text-blue-800 rounded">
-                        {result.category}
-                      </span>
+                      <div className="flex items-center gap-2">
+                        <span className="inline-block px-2 py-1 text-xs bg-blue-100 text-blue-800 rounded">
+                          {result.category?.name}
+                        </span>
+                        <span className="text-xs text-gray-500">
+                          {result.view_count} views
+                        </span>
+                      </div>
                     </div>
                   </div>
                 </div>

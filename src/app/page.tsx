@@ -1,42 +1,63 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowRight, Zap, BookOpen, Cpu, Wifi, CircuitBoard, Lightbulb, Brain } from 'lucide-react';
+import { ContentService } from '@/lib/content';
+import type { Tutorial, Category } from '@/lib/types';
 
-export default function Home() {
-  const categories = [
-    {
-      title: 'Electronics 101',
-      description: 'Complete beginner? Start here! Step-by-step lessons from absolute basics to building your first circuits.',
-      href: '/electronics-101',
-      color: 'bg-green-500',
-      icon: BookOpen,
-      stats: '10 Lessons'
-    },
-    {
-      title: 'Arduino',
-      description: 'If this is your first experience tinkering with electronics, Arduino is the best platform you can start playing with.',
-      href: '/electronics/arduino-projects',
-      color: 'bg-blue-500',
-      icon: Cpu,
-      stats: '25+ Projects'
-    },
-    {
-      title: 'ESP32',
-      description: 'Building a sensor network? Want to create a BLE device? ESP32 is your one-stop-solution for many IoT apps.',
-      href: '/electronics/esp32-projects',
-      color: 'bg-indigo-500',
-      icon: Wifi,
-      stats: '15+ Projects'
-    },
-    {
-      title: 'ESP8266',
-      description: 'The ESP8266 is the easiest point of entry to basic IoT. It is great for beginners and advanced users alike.',
-      href: '/electronics/esp8266-projects',
-      color: 'bg-purple-500',
-      icon: Zap,
-      stats: '20+ Projects'
+// Use static generation for better performance and build reliability
+export const dynamic = 'force-static';
+export const revalidate = 3600; // Revalidate every hour
+
+// Default fallback data for build time and when database is unavailable
+const defaultCategories: Category[] = [
+  { id: '1', name: 'Electronics 101', slug: 'electronics-101', description: 'Complete beginner? Start here!', color: 'bg-green-500', icon: 'BookOpen', order_index: 0, created_at: '', updated_at: '' },
+  { id: '2', name: 'Arduino', slug: 'arduino', description: 'Arduino projects and tutorials', color: 'bg-blue-500', icon: 'Cpu', order_index: 1, created_at: '', updated_at: '' },
+  { id: '3', name: 'ESP32', slug: 'esp32', description: 'ESP32 IoT projects', color: 'bg-indigo-500', icon: 'Wifi', order_index: 2, created_at: '', updated_at: '' },
+  { id: '4', name: 'ESP8266', slug: 'esp8266', description: 'ESP8266 projects', color: 'bg-purple-500', icon: 'Zap', order_index: 3, created_at: '', updated_at: '' }
+];
+
+export default async function Home() {
+  // Initialize with fallback data
+  let categories: Category[] = defaultCategories;
+  let featuredTutorials: Tutorial[] = [];
+
+  // Only try to fetch from database if we're not in build phase
+  if (process.env.NEXT_PHASE !== 'phase-production-build') {
+    try {
+      const [categoriesData, tutorialsData] = await Promise.all([
+        ContentService.getCategories(),
+        ContentService.getTutorials(undefined, true) // Get all published tutorials
+      ]);
+
+      // Only use database data if we actually got results
+      if (categoriesData && categoriesData.length > 0) {
+        categories = categoriesData;
+      }
+      if (tutorialsData && tutorialsData.length > 0) {
+        featuredTutorials = tutorialsData;
+      }
+    } catch (error) {
+      console.error('Error fetching data, using fallback:', error);
+      // Keep using fallback data
     }
-  ];
+  }
+
+  // Icon mapping for categories
+  const iconMap: { [key: string]: any } = {
+    'BookOpen': BookOpen,
+    'Cpu': Cpu,
+    'Wifi': Wifi,
+    'Zap': Zap,
+    'CircuitBoard': CircuitBoard,
+    'Calculator': Lightbulb, // Fallback for calculator icon
+  };
+
+  // Get featured tutorials by category
+  const getFeaturedByCategory = (categorySlug: string, limit = 3) => {
+    return featuredTutorials
+      .filter(tutorial => tutorial.category?.slug === categorySlug)
+      .slice(0, limit);
+  };
 
   return (
     <div className="min-h-screen">
@@ -86,12 +107,15 @@ export default function Home() {
       <section className="py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {categories.map((category) => {
-              const Icon = category.icon;
+            {categories.slice(0, 4).map((category) => {
+              const Icon = iconMap[category.icon] || BookOpen;
+              const categoryTutorials = featuredTutorials.filter(t => t.category_id === category.id);
+              const stats = `${categoryTutorials.length} Tutorial${categoryTutorials.length !== 1 ? 's' : ''}`;
+
               return (
                 <Link
-                  key={category.href}
-                  href={category.href}
+                  key={category.id}
+                  href={`/category/${category.slug}`}
                   className="group bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden hover:scale-105"
                 >
                   <div className={`h-2 ${category.color}`}></div>
@@ -102,9 +126,9 @@ export default function Home() {
                       </div>
                       <div>
                         <h3 className="text-xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors">
-                          {category.title}
+                          {category.name}
                         </h3>
-                        <span className="text-xs text-gray-500">{category.stats}</span>
+                        <span className="text-xs text-gray-500">{stats}</span>
                       </div>
                     </div>
                     <p className="text-gray-600 mb-4 text-sm leading-relaxed">
@@ -212,37 +236,32 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[
-              {
-                title: 'How nRF24L01+ Wireless Module Works & Interface with Arduino',
-                description: 'Imagine having two or more Arduinos talking to each other...',
-                href: '/nrf24l01-arduino-wireless-communication'
-              },
-              {
-                title: 'How Soil Moisture Sensor Works and Interface it with Arduino',
-                description: 'When you hear the term "smart garden," one of the...',
-                href: '/soil-moisture-sensor-arduino-tutorial'
-              },
-              {
-                title: 'Interface an I2C LCD with Arduino',
-                description: 'If you\'ve ever tried connecting an LCD display to an...',
-                href: '/i2c-lcd-arduino-tutorial'
-              }
-            ].map((project) => (
+            {getFeaturedByCategory('arduino').map((tutorial) => (
               <Link
-                key={project.href}
-                href={project.href}
+                key={tutorial.id}
+                href={`/tutorial/${tutorial.slug}`}
                 className="group bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors duration-300 overflow-hidden"
               >
-                <div className="aspect-video bg-gradient-to-br from-blue-500 to-purple-600 opacity-20 flex items-center justify-center">
-                  <span className="text-gray-600 text-sm">Arduino Tutorial</span>
+                <div className="aspect-video bg-gradient-to-br from-blue-500 to-purple-600 opacity-20 flex items-center justify-center overflow-hidden">
+                  {tutorial.featured_image ? (
+                    <img
+                      src={tutorial.featured_image}
+                      alt={tutorial.title}
+                      className="w-full h-full object-cover opacity-80"
+                      onError={(e) => {
+                        e.currentTarget.style.display = 'none';
+                      }}
+                    />
+                  ) : (
+                    <span className="text-gray-600 text-sm">Arduino Tutorial</span>
+                  )}
                 </div>
                 <div className="p-6">
                   <h3 className="text-lg font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors line-clamp-2">
-                    {project.title}
+                    {tutorial.title}
                   </h3>
                   <p className="text-gray-600 text-sm leading-relaxed line-clamp-3">
-                    {project.description}
+                    {tutorial.description}
                   </p>
                 </div>
               </Link>
@@ -266,37 +285,32 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[
-              {
-                title: 'ESP32-CAM Pinout Reference',
-                description: 'Without a doubt, the ESP32-CAM is a powerful device with...',
-                href: '/esp32-cam-pinout-reference'
-              },
-              {
-                title: 'Create A Simple ESP32 Weather Station With BME280',
-                description: 'Don\'t rely solely on smartphone weather apps or commercial weather...',
-                href: '/bme280-esp32-weather-station'
-              },
-              {
-                title: 'ESP32 vs. ESP8266: Which Microcontroller Is Right for You?',
-                description: 'ESP32 vs. ESP8266. If you have an Internet of Things...',
-                href: '/esp32-vs-esp8266-comparison'
-              }
-            ].map((project) => (
+            {getFeaturedByCategory('esp32').map((tutorial) => (
               <Link
-                key={project.href}
-                href={project.href}
+                key={tutorial.id}
+                href={`/tutorial/${tutorial.slug}`}
                 className="group bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden"
               >
-                <div className="aspect-video bg-gradient-to-br from-green-500 to-blue-600 opacity-20 flex items-center justify-center">
-                  <span className="text-gray-600 text-sm">ESP32 Tutorial</span>
+                <div className="aspect-video bg-gradient-to-br from-green-500 to-blue-600 opacity-20 flex items-center justify-center overflow-hidden">
+                  {tutorial.featured_image ? (
+                    <img
+                      src={tutorial.featured_image}
+                      alt={tutorial.title}
+                      className="w-full h-full object-cover opacity-80"
+                      onError={(e) => {
+                        e.currentTarget.style.display = 'none';
+                      }}
+                    />
+                  ) : (
+                    <span className="text-gray-600 text-sm">ESP32 Tutorial</span>
+                  )}
                 </div>
                 <div className="p-6">
                   <h3 className="text-lg font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors line-clamp-2">
-                    {project.title}
+                    {tutorial.title}
                   </h3>
                   <p className="text-gray-600 text-sm leading-relaxed line-clamp-3">
-                    {project.description}
+                    {tutorial.description}
                   </p>
                 </div>
               </Link>
